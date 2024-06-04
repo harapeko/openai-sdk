@@ -1,0 +1,66 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "openai-sdk"
+dynamic = ["version"]
+description = ''
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "harapeko", email = "gmail@harapeko.dev" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+  "openai"
+]
+
+[project.urls]
+Documentation = "https://github.com/harapeko/openai-sdk#readme"
+Issues = "https://github.com/harapeko/openai-sdk/issues"
+Source = "https://github.com/harapeko/openai-sdk"
+
+[tool.hatch.version]
+path = "src/openai_sdk/__about__.py"
+
+[tool.hatch.envs.types]
+extra-dependencies = [
+  "mypy>=1.0.0",
+]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/openai_sdk tests}"
+
+[tool.hatch.envs.default.scripts]
+test = "echo 'hell world!'"
+
+[tool.coverage.run]
+source_pkgs = ["openai_sdk", "tests"]
+branch = true
+parallel = true
+omit = [
+  "src/openai_sdk/__about__.py",
+]
+
+[tool.coverage.paths]
+openai_sdk = ["src/openai_sdk", "*/openai-sdk/src/openai_sdk"]
+tests = ["tests", "*/openai-sdk/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
